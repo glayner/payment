@@ -1,0 +1,30 @@
+version: '3.1'
+services:
+
+  pg:
+    image: postgres
+    ports: [ "5432:5432" ]
+    networks: [ starter-net ]
+    restart: always
+    env_file:
+      - ./.env
+    environment:
+      - POSTGRES_PASSWORD=${DB_PASSWORD}
+      - POSTGRES_USER=${DB_USER}
+      - POSTGRES_DB=${DB_DATABASE}
+
+  starter:
+    image: starter
+    build: .
+    entrypoint:  ["sh", "./start.sh"]
+    env_file: [ ./.env ]
+    environment:
+      DB_HOST: pg
+    volumes: [ ".:/usr/app/current" ]
+    ports: [ "9000:9000" ]
+    networks: [ starter-net ]
+    links: [ pg ]
+    depends_on: [ pg ]
+
+networks:
+    starter-net:

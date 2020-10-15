@@ -1,0 +1,412 @@
+paths:
+  /api/credential:
+    get:
+      tags:
+        - "Credenciais"
+      summary: "List credential"
+      description: ""
+      operationId: "listCredential"
+      produces:
+      - "application/json"
+      parameters:
+      - in: "query"
+        name: "page"
+        type: "integer"
+        description: "Número da Pagina na listagem"
+      responses:
+        200:
+          description: "successful operation"
+          schema:
+            $ref: "#/definitions/pagination"
+        401:
+          description: "unauthorized"
+        422:
+          description: "A requisição está bem formada mas inabilitada para ser seguida devido a erros semânticos."
+        500:
+          description: "Internal Server Error"
+      security:
+        - basicAuth: []
+/api/credential:
+    post:
+      tags:
+        - "Credenciais"
+      summary: "Created credential"
+      description: ""
+      operationId: "CreatedCredential"
+      produces:
+      - "application/json"
+      parameters:
+      - in: "body"
+        name: "body"
+        description: "Credential object that needs to be added to the store"
+        required: true
+        schema:
+          $ref: "#/definitions/credential"
+      responses:
+        200:
+          description: "successful operation"
+          schema:
+            $ref: "#/definitions/credential"
+        401:
+          description: "unauthorized"
+        422:
+          description: "A requisição está bem formada mas inabilitada para ser seguida devido a erros semânticos."
+        500:
+          description: "Internal Server Error"
+      security:
+        - basicAuth: []
+/api/credential/{ID}:
+    put:
+      tags:
+        - "Credenciais"
+      summary: "Updated credential"
+      description: ""
+      operationId: "UpdatedCredential"
+      produces:
+      - "application/json"
+      parameters:
+      - name: "ID"
+        in: "path"
+        description: "ID of creadential that needs to be fetched"
+        required: true
+        type: "integer"
+      - in: "body"
+        name: "body"
+        description: "Credential object that needs to be added to the store"
+        required: true
+        schema:
+          $ref: "#/definitions/credentialUpdate"
+      responses:
+        201:
+          description: "successful operation"
+          schema:
+            $ref: "#/definitions/credential"
+        401:
+          description: "unauthorized"
+        422:
+          description: "A requisição está bem formada mas inabilitada para ser seguida devido a erros semânticos."
+        500:
+          description: "Internal Server Error"
+      security:
+        - basicAuth: []
+/api/credential/{DeleteId}:
+    delete:
+      tags:
+        - "Credenciais"
+      summary: "Delete credential"
+      description: ""
+      operationId: "DeleteCredential"
+      produces:
+      - "application/json"
+      parameters:
+      - name: "DeleteId"
+        in: "path"
+        description: "ID of creadential that needs to be fetched"
+        required: true
+        type: "integer"
+      responses:
+        201:
+          description: "successful operation"
+        401:
+          description: "unauthorized"
+        422:
+          description: "A requisição está bem formada mas inabilitada para ser seguida devido a erros semânticos."
+        500:
+          description: "Internal Server Error"
+      security:
+        - basicAuth: []
+/api/credential/{ShowID}:
+    get:
+      tags:
+        - "Credenciais"
+      summary: "Show credential"
+      description: ""
+      operationId: "ShowCredential"
+      produces:
+      - "application/json"
+      parameters:
+      - name: "ShowID"
+        in: "path"
+        description: "ID of creadential that needs to be fetched"
+        required: true
+        type: "integer"
+      responses:
+        200:
+          description: "successful operation"
+          schema:
+            $ref: "#/definitions/credential"
+        401:
+          description: "unauthorized"
+        422:
+          description: "A requisição está bem formada mas inabilitada para ser seguida devido a erros semânticos."
+        500:
+          description: "Internal Server Error"
+      security:
+        - basicAuth: []
+/api/payment/sandbox:
+    post:
+      tags:
+        - "Payment"
+      summary: "Created Payment Sandbox"
+      description: ""
+      operationId: "CreatedPaymentSandbox"
+      produces:
+      - "application/json"
+      parameters:
+      - in: "body"
+        name: "body"
+        description: "All Keys Request"
+        required: true
+        schema:
+          $ref: "#/definitions/sandbox"
+      responses:
+        200:
+          description: "successful operation"
+        401:
+          description: "unauthorized"
+        422:
+          description: "A requisição está bem formada mas inabilitada para ser seguida devido a erros semânticos."
+        500:
+          description: "Internal Server Error"
+      security:
+        - basicAuth: []
+/api/payment:
+    post:
+      tags:
+        - "Payment"
+      summary: "Created Payment"
+      description: ""
+      operationId: "CreatedPayment"
+      produces:
+      - "application/json"
+      parameters:
+      - in: "body"
+        name: "body"
+        description: "All Keys Request"
+        required: true
+        schema:
+          $ref: "#/definitions/payment"
+      responses:
+        200:
+          description: "successful operation"
+        401:
+          description: "unauthorized"
+        422:
+          description: "A requisição está bem formada mas inabilitada para ser seguida devido a erros semânticos."
+        500:
+          description: "Internal Server Error"
+      security:
+        - basicAuth: []
+/api/payment/test:
+    post:
+      tags:
+        - "Payment"
+      summary: "Created Payment Test"
+      description: ""
+      operationId: "CreatedPaymentTest"
+      produces:
+      - "application/json"
+      parameters:
+      - in: "body"
+        name: "body"
+        description: "All Keys Request"
+        required: true
+        schema:
+          $ref: "#/definitions/payment"
+      responses:
+        200:
+          description: "successful operation"
+        401:
+          description: "unauthorized"
+        422:
+          description: "A requisição está bem formada mas inabilitada para ser seguida devido a erros semânticos."
+        500:
+          description: "Internal Server Error"
+      security:
+        - basicAuth: []
+definitions:
+  credential:
+    type: "object"
+    properties:
+      id:
+        type: "integer"
+        description: "ID Credenciais"
+        default: 1
+      access_token:
+        type: "string"
+        description: "access_token Mercado Pago - Backend"
+        default: "$2a$10$DTj/BPVJo9vlYG3lZfIrkuoIy"
+      public_key:
+        type: "string"
+        description: "public_key Mercado Pago - FrontEnd"
+        default: "$2a$10$DTj/BPVJo9vlYG3lZfIrkuoIy"
+      client:
+        type: "string"
+        description: "Name client Account Mercado Pago"
+        default: "Capital de Prêmios"
+      sandbox:
+        type: "boolean"
+        description: "Name client Account Mercado Pago"
+        default: false
+  credentialUpdate:
+    type: "object"
+    properties:
+      access_token:
+        type: "string"
+        description: "access_token Mercado Pago - Backend"
+        default: "$2a$10$DTj/BPVJo9vlYG3lZfIrkuoIy"
+      public_key:
+        type: "string"
+        description: "public_key Mercado Pago - FrontEnd"
+        default: "$2a$10$DTj/BPVJo9vlYG3lZfIrkuoIy"
+      client:
+        type: "string"
+        description: "Name client Account Mercado Pago"
+        default: "Capital de Prêmios"
+      sandbox:
+        type: "boolean"
+        description: "Name client Account Mercado Pago"
+        default: false
+  pagination:
+    type: "object"
+    properties:
+      total:
+        type: "integer"
+      perPage:
+        type: "integer"
+      page:
+        type: "integer"
+      lastPage:
+        type: "integer"
+      data:
+        type: "array"
+        items:
+          $ref: '#/definitions/credential'
+  sandbox:
+    type: "object"
+    properties:
+      token:
+        type: "string"
+        description: "Token Form Mercado Pago"
+        default: "$2a$10$DTj/BPVJo9vlYG3lZfIrkuoIy"
+      payment_method_id:
+        type: "string"
+        description: "Payment Method Flag"
+        enum:
+          - "master"
+          - "visa"
+          - "amex"
+          - "elo"
+          - "hipercard"
+        default: "master"
+      transaction_amount:
+        type: "integer"
+        description: "Value Product"
+        default: 100
+      payer:
+        type: "object"
+        properties:
+          email:
+            type: "string"
+            description: "E-mail Payer"
+            default: "example@test.com"
+          first_name:
+            type: "string"
+            description: "First Name"
+            default: "João"
+          last_name:
+            type: "string"
+            description: "Last Name"
+            default: "Carlos"
+          identification:
+            type: "string"
+            description: "CPF"
+            default: "12345678911"
+          phone:
+            type: "object"
+            properties:
+              area_code:
+                type: "string"
+                description: "DD"
+                default: "61"
+              number:
+                type: "string"
+                description: "Phone"
+                default: "9949703849"
+          address:
+            type: "object"
+            properties:
+              zip_code:
+                type: "string"
+                description: "CEP"
+                default: "77000888"
+              street_number:
+                type: "integer"
+                description: "Número"
+                default: 123
+  payment:
+    type: "object"
+    properties:
+      credential:
+        type: "integer"
+        description: "ID"
+        default: 1
+      token:
+        type: "string"
+        description: "Token Form Mercado Pago"
+        default: "$2a$10$DTj/BPVJo9vlYG3lZfIrkuoIy"
+      payment_method_id:
+        type: "string"
+        description: "Payment Method Flag"
+        enum:
+          - "master"
+          - "visa"
+          - "amex"
+          - "elo"
+          - "hipercard"
+        default: "master"
+      transaction_amount:
+        type: "integer"
+        description: "Value Product"
+        default: 100
+      payer:
+        type: "object"
+        properties:
+          email:
+            type: "string"
+            description: "E-mail Payer"
+            default: "example@test.com"
+          first_name:
+            type: "string"
+            description: "First Name"
+            default: "João"
+          last_name:
+            type: "string"
+            description: "Last Name"
+            default: "Carlos"
+          identification:
+            type: "string"
+            description: "CPF"
+            default: "12345678911"
+          phone:
+            type: "object"
+            properties:
+              area_code:
+                type: "string"
+                description: "DD"
+                default: "61"
+              number:
+                type: "string"
+                description: "Phone"
+                default: "9949703849"
+          address:
+            type: "object"
+            properties:
+              zip_code:
+                type: "string"
+                description: "CPE"
+                default: "77000888"
+              street_number:
+                type: "integer"
+                description: "Número"
+                default: 123
